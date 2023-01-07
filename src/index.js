@@ -6,8 +6,8 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
-const users = [];
-const tweets = [];
+let users = [];
+let tweets = [];
 
 server.post('/sign-up', (req, res) => {
     const user = req.body;
@@ -27,19 +27,23 @@ server.post('/tweets', (req, res) => {
         return;
     }
     const tweet = req.body;
-    console.log(req.body);
     const id = tweets.length + 1;
-
     tweet.id = id;
-
+    users.map(user => {
+        if (user.username === req.body.username) {
+            tweet.avatar = user.avatar;
+        }
+    })
+    
     tweets.push(tweet);
+    tweets = tweets.slice(0, 10);
+
     console.log(tweets);
     res.send('OK');
 });
 
 server.get('/tweets', (req, res) => {
-    
-    res.send(tweets.splice(0, 10));
+    res.send(tweets.reverse());
 });
 
 const PORT = 5000;
