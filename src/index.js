@@ -37,13 +37,12 @@ server.post('/tweets', (req, res) => {
     
     tweets.push(tweet);
     tweets = tweets.slice(0, 10);
-
     console.log(tweets);
     res.send('OK');
 });
 
 server.get('/tweets', (req, res) => {
-    res.send(tweets.reverse());
+    res.send(tweets);
 });
 
 const PORT = 5000;
