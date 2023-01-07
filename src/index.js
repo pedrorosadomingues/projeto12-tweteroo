@@ -35,7 +35,7 @@ server.post('/tweets', (req, res) => {
         }
     })
     
-    tweets.push(tweet);
+    tweets.unshift(tweet);
     tweets = tweets.slice(0, 10);
     console.log(tweets);
     res.send('OK');
